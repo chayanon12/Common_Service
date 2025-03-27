@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh 'docker build -t ${IMAGE_NAME} .'
             }
         }
 
@@ -24,8 +24,8 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker stop $CONTAINER_NAME || true
-                    docker rm $CONTAINER_NAME || true
+                    docker stop ${CONTAINER_NAME} || true
+                    docker rm ${CONTAINER_NAME} || true
                     """
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
 
         stage('Run New Container') {
             steps {
-                sh 'docker run -d -p $PORT:$PORT --name $CONTAINER_NAME $IMAGE_NAME'
+                sh 'docker run -d -p ${PORT}:${PORT} --name ${CONTAINER_NAME} ${IMAGE_NAME}'
             }
         }
     }
